@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ParseObjectIdPipe, ZodValidate } from '../common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ParamObjectId, ZodValidate } from '../common';
 import { ObjectId } from '../foundation';
 import { CreateUserRequest, createUserRequestSchema } from '../schemas/api';
 import { UserModel } from '../schemas/model';
@@ -15,7 +15,7 @@ export class UserController {
   }
 
   @Get(':userId')
-  getUser(@Param('id', ParseObjectIdPipe) userId: ObjectId) {
+  getUser(@ParamObjectId('userId') userId: ObjectId) {
     return this.userService.findUserById(userId);
   }
 

@@ -1,3 +1,4 @@
+export * from './decorators/object-id-param';
 export * from './decorators/zod-validator';
 
 export * from './filters/http-exception.filter';

@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ParseObjectIdPipe, ZodValidate } from '../common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ParamObjectId, ZodValidate } from '../common';
 import { ObjectId } from '../foundation';
 import { CreateChatRequest, createChatRequestSchema } from '../schemas/api';
 import { ChatModel } from '../schemas/model';
@@ -15,7 +15,7 @@ export class ChatController {
   }
 
   @Get(':chatId')
-  getChat(@Param('chatId', ParseObjectIdPipe) chatId: ObjectId) {
+  getChat(@ParamObjectId('chatId') chatId: ObjectId) {
     return this.chatService.findChatById(chatId);
   }
 
