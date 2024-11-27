@@ -1,15 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
+import { BaseModel } from './base.model';
+import { ChatModel } from './chat.model';
+import { UserModel } from './user.model';
 
 export type MessageDocument = HydratedDocument<MessageModel>;
 
-@Schema()
-export class MessageModel {
-  @Prop({ required: true })
-  chatId: string;
+@Schema({
+  collection: 'messages',
+})
+export class MessageModel extends BaseModel {
+  @Prop({ required: true, ref: ChatModel.name })
+  chatId: Types.ObjectId;
 
-  @Prop({ required: true })
-  userId: string;
+  @Prop({ required: true, ref: UserModel.name })
+  userId: Types.ObjectId;
 
   @Prop({ required: true })
   text: string;

@@ -8,6 +8,7 @@ services:
     volumes:
       - ./data:/data/db
     environment:
+      - MONGODB_DATABASE=${MONGODB_DBNAME}
       - MONGODB_URI=${MONGODB_URI}
     env_file:
       - .env
