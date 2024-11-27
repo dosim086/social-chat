@@ -1,4 +1,18 @@
+import { useEffect, useState } from 'react';
+import { fetchChats } from '../../services/chat.service';
+import { ChatMessage } from './chat-message';
+
 export function ChatContent() {
+  const [chats, setChats] = useState([]);
+
+  useEffect(() => {
+    console.log('Rendered chat-content');
+    fetchChats().then((data) => {
+      setChats(data);
+      console.log(data);
+    });
+  }, []);
+
   return (
     <div className='chat-area flex-1 flex flex-col'>
       <div className='flex-3'>
@@ -7,6 +21,10 @@ export function ChatContent() {
         </h2>
       </div>
       <div className='messages flex-1 overflow-auto'>
+        {chats.map(({ text, createdAt }) => (
+          <ChatMessage date={createdAt}>{text}</ChatMessage>
+        ))}
+
         <div className='message mb-4 flex'>
           <div className='flex-2'>
             <div className='w-12 h-12 relative'>

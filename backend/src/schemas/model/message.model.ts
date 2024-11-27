@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type MessageDocument = HydratedDocument<Message>;
+export type MessageDocument = HydratedDocument<MessageModel>;
 
 @Schema()
-export class Message {
+export class MessageModel {
   @Prop({ required: true })
   chatId: string;
 
@@ -15,4 +15,4 @@ export class Message {
   text: number;
 }
 
-export const MessageSchema = SchemaFactory.createForClass(Message);
+export const MessageModelSchema = SchemaFactory.createForClass(MessageModel);
