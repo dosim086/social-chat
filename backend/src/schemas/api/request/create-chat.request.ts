@@ -13,7 +13,9 @@ export const createChatRequestSchema = z
             message: 'Invalid ObjectId',
           }),
       )
-      .min(1),
+      .min(1)
+      // duplicate userID can be removed after success validation
+      .transform((val) => [...new Set(val)]),
   })
   .required();
 
