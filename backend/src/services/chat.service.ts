@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ObjectId } from '../foundation';
 import { CreateChatRequest } from '../schemas/api';
 import { ChatModel } from '../schemas/model';
 
@@ -15,7 +16,7 @@ export class ChatService {
     return await newChat.save();
   }
 
-  async findChatById(chatId: string): Promise<ChatModel | null> {
+  async findChatById(chatId: ObjectId): Promise<ChatModel | null> {
     return await this.chatModel.findById(chatId);
   }
 

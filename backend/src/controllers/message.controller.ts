@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ZodValidate } from '../common';
+import { ParseObjectIdPipe, ZodValidate } from '../common';
+import { ObjectId } from '../foundation';
 import { AddMessageRequest, addMessageRequestSchema } from '../schemas/api';
 import { MessageModel } from '../schemas/model';
 import { MessageService } from '../services';
@@ -9,7 +10,9 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Get(':chatId')
-  getMessages(@Param('chatId') chatId: string): Promise<MessageModel[]> {
+  getMessages(
+    @Param('chatId', ParseObjectIdPipe) chatId: ObjectId,
+  ): Promise<MessageModel[]> {
     return this.messageService.getAllMessagesByChat(chatId);
   }
 

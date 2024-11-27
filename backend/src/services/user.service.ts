@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ObjectId } from '../foundation';
 import { CreateUserRequest } from '../schemas/api';
 import { UserModel } from '../schemas/model';
 
@@ -15,8 +16,8 @@ export class UserService {
     return await newUser.save();
   }
 
-  async findUserById(UserId: string): Promise<UserModel | null> {
-    return await this.userModel.findById(UserId);
+  async findUserById(userId: ObjectId): Promise<UserModel | null> {
+    return await this.userModel.findById(userId);
   }
 
   findAllUsers(): Promise<UserModel[]> {
