@@ -7,6 +7,7 @@ import {
 import { Response } from 'express';
 import { ValidationException } from '../../errors';
 import { ErrorResponseError } from '../../foundation';
+import { formatZodErrors } from '../../utils';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -18,7 +19,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const errorDetails = exception.getResponse() as ErrorResponseError;
 
     if (exception instanceof ValidationException) {
-      errorDetails.details = exception.details;
+      errorDetails.details = formatZodErrors(exception.details.issues);
     }
 
     response.status(status).json({

@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const createUserRequestSchema = z
   .object({
-    username: z.string(),
+    username: z.string().trim(),
   })
   .required();
 

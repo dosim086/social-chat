@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Post } from '@nestjs/common';
 import { ParamObjectId, ZodValidate } from '../common';
 import { ObjectId } from '../foundation';
 import { CreateUserRequest, createUserRequestSchema } from '../schemas/api';
-import { UserModel } from '../schemas/model';
 import { UserService } from '../services';
 
 @Controller('users')
@@ -10,18 +9,26 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  getUsers(): Promise<UserModel[]> {
-    return this.userService.findAllUsers();
+  async getUsers() {
+    const users = await this.userService.findAllUsers();
+
+    return { users };
   }
 
   @Get(':userId')
-  getUser(@ParamObjectId('userId') userId: ObjectId) {
-    return this.userService.findUserById(userId);
+  async getUser(@ParamObjectId('userId') userId: ObjectId) {
+    const user = await this.userService.findUserById(userId);
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return { user };
   }
 
   @Post()
   @ZodValidate(createUserRequestSchema)
-  createUser(@Body() newUser: CreateUserRequest) {
-    this.userService.createUser(newUser);
+  async createUser(@Body() newUser: CreateUserRequest) {
+    await this.userService.createUser(newUser);
   }
 }

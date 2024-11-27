@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Post } from '@nestjs/common';
 import { ParamObjectId, ZodValidate } from '../common';
 import { ObjectId } from '../foundation';
 import { CreateChatRequest, createChatRequestSchema } from '../schemas/api';
-import { ChatModel } from '../schemas/model';
 import { ChatService } from '../services';
 
 @Controller('chats')
@@ -10,18 +9,26 @@ export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
   @Get()
-  getChats(): Promise<ChatModel[]> {
-    return this.chatService.findAllChats();
+  async getChats() {
+    const chats = await this.chatService.findAllChats();
+
+    return { chats };
   }
 
   @Get(':chatId')
-  getChat(@ParamObjectId('chatId') chatId: ObjectId) {
-    return this.chatService.findChatById(chatId);
+  async getChat(@ParamObjectId('chatId') chatId: ObjectId) {
+    const chat = await this.chatService.findChatById(chatId);
+
+    if (!chat) {
+      throw new NotFoundException();
+    }
+
+    return { chat };
   }
 
   @Post()
   @ZodValidate(createChatRequestSchema)
-  createChat(@Body() newChat: CreateChatRequest) {
-    this.chatService.createChat(newChat);
+  async createChat(@Body() newChat: CreateChatRequest) {
+    await this.chatService.createChat(newChat);
   }
 }

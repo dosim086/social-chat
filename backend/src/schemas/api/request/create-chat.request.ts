@@ -6,9 +6,12 @@ export const createChatRequestSchema = z
     name: z.string(),
     participants: z
       .array(
-        z.string().refine((val) => Types.ObjectId.isValid(val), {
-          message: 'Invalid ObjectId',
-        }),
+        z
+          .string()
+          .trim()
+          .refine((val) => Types.ObjectId.isValid(val), {
+            message: 'Invalid ObjectId',
+          }),
       )
       .min(1),
   })
