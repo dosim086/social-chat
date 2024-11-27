@@ -12,7 +12,7 @@ export class MessageModel {
   userId: string;
 
   @Prop({ required: true })
-  text: number;
+  text: string;
 }
 
 export const MessageModelSchema = SchemaFactory.createForClass(MessageModel);
