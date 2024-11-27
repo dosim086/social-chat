@@ -16,7 +16,7 @@ export class MessageService {
     return await addedMessage.save();
   }
 
-  getAllMessagesByChat(chatId: ObjectId): Promise<MessageModel[]> {
-    return this.messageModel.find({ chatId });
+  async getAllMessagesByChat(chatId: ObjectId): Promise<MessageModel[]> {
+    return await this.messageModel.find({ chatId: chatId.toString() });
   }
 }
