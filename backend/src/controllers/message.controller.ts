@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ZodValidate } from '../common/decorators/zod-validator.js';
+import { ZodValidate } from '../common';
 import { AddMessageRequest, addMessageRequestSchema } from '../schemas/api';
 import { MessageModel } from '../schemas/model';
 import { MessageService } from '../services';

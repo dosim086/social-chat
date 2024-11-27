@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ZodValidate } from '../common/decorators/zod-validator.js';
+import { ZodValidate } from '../common';
 import { CreateChatRequest, createChatRequestSchema } from '../schemas/api';
 import { ChatModel } from '../schemas/model';
 import { ChatService } from '../services';

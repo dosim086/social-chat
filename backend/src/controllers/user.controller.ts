@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ZodValidate } from '../common/decorators/zod-validator.js';
+import { ZodValidate } from '../common';
 import { CreateUserRequest, createUserRequestSchema } from '../schemas/api';
 import { UserModel } from '../schemas/model';
 import { UserService } from '../services';
