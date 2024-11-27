@@ -8,8 +8,7 @@ export function ChatContent() {
   useEffect(() => {
     console.log('Rendered chat-content');
     fetchChats().then((data) => {
-      setChats(data);
-      console.log(data);
+      setChats(data.data.chats);
     });
   }, []);
 
