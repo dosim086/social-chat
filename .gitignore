@@ -16,3 +16,6 @@ lerna-debug.log*
 TODO.txt
 .env
 .DS_Store
+
+# mongo
+data
