@@ -3,18 +3,8 @@ import { z } from 'zod';
 
 export const addMessageRequestSchema = z
   .object({
-    chatId: z
-      .string()
-      .trim()
-      .refine((val) => Types.ObjectId.isValid(val), {
-        message: 'Invalid ObjectId',
-      }),
-    userId: z
-      .string()
-      .trim()
-      .refine((val) => Types.ObjectId.isValid(val), {
-        message: 'Invalid ObjectId',
-      }),
+    chatId: z.string().trim().refine(Types.ObjectId.isValid),
+    userId: z.string().trim().refine(Types.ObjectId.isValid),
     text: z.string().trim(),
   })
   .required();
